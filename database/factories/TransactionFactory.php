@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Buyer;
+use App\User;
 use App\Product;
 use App\Transaction;
 use Faker\Generator as Faker;
@@ -12,9 +12,9 @@ $factory->define(Transaction::class, function (Faker $faker) {
     $buyer = User::all()->except($product->seller->id)->random();
 
     return [
-        'buyer_id' => $buyer,
-        'product_id' => $product,
-        'quantity' => $quantity = $faker->randomeDigit,
+        'buyer_id' => $buyer->id,
+        'product_id' => $product->id,
+        'quantity' => $quantity = $faker->randomDigit,
         'total_price' => $product->price * $quantity
     ];
 });

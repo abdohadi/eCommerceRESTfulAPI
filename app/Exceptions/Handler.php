@@ -2,11 +2,17 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use App\Traits\ApiResponser;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
+    use ApiResponser;
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -50,6 +56,33 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof ValidationException) {
+            return $this->convertValidationExceptionToResponse($exception, $request);
+        } else if ($exception instanceof ModelNotFoundException) {
+            $modelName = strtolower(class_basename($exception->getModel()));
+
+            return $this->errorResponse("The {$modelName} with the specified identifier doesn't exist", 404);
+        }
+
         return parent::render($request, $exception);
+    }
+
+    protected function convertValidationExceptionToResponse(ValidationException $e, $request)
+    {
+        $errors = $e->errors();
+
+        // if ($this->isFrontend($request)) {
+        //     return $request->ajax() 
+        //                 ? $this->errorResponse($errors, 422) 
+        //                 : redirect()->back()
+        //                     ->withInput($request->input())
+        //                     ->withErrors($errors);
+        // }
+
+        return $this->errorResponse([
+            'message' => $e->getMessage(),
+            'errors' => $errors,
+            'code' => $e->status
+        ], $e->status);
     }
 }
