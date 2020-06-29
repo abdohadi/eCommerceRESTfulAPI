@@ -14,6 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// User routes
+/**
+ * User Routes
+ */
 Route::ApiResource('users', 'User\UserController');
 
+/**
+ * Seller Routes
+ */
+Route::ApiResource('sellers', 'Seller\SellerController')->only(['index', 'show']);
+Route::ApiResource('sellers.products', 'Seller\SellerProductController')->except('show');
+Route::ApiResource('sellers.categories', 'Seller\SellerCategoryController')->only('index');
+Route::ApiResource('sellers.transactions', 'Seller\SellerTransactionController')->only('index');
+Route::ApiResource('sellers.buyers', 'Seller\SellerBuyerController')->only('index');

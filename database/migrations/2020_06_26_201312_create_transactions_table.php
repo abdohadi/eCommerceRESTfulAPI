@@ -21,8 +21,8 @@ class CreateTransactionsTable extends Migration
             $table->double('total_price');
             $table->timestamps();
 
-            $table->foreign('buyer_id')->references('id')->on('users');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('buyer_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

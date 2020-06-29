@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Seller;
 use App\Product;
 use Tests\TestCase;
 use App\Transaction;
@@ -16,8 +17,9 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $product = factory(Product::class)->create();
+        $this->withoutExceptionHandling();
+        $categories = $this->get('api/sellers/5/categories/');
 
-        dd($product->seller);
+        dd($categories);
     }
 }
