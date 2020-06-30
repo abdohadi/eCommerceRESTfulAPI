@@ -28,4 +28,9 @@ class Product extends Model
     {
     	return $this->hasMany(Transaction::class);
     }
+
+    public function isAvailable()
+    {
+        return $this->status == static::AVAILABLE_PRODUCT;
+    }
 }

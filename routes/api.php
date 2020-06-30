@@ -36,3 +36,12 @@ Route::ApiResource('buyers.transactions', 'Buyer\BuyerTransactionController')->o
 Route::ApiResource('buyers.products', 'Buyer\BuyerProductController')->only('index');
 Route::ApiResource('buyers.categories', 'Buyer\BuyerCategoryController')->only('index');
 Route::ApiResource('buyers.sellers', 'Buyer\BuyerSellerController')->only('index');
+
+/**
+ * Product Routes
+ */
+Route::ApiResource('products', 'Product\ProductController')->only(['index', 'show']);
+Route::ApiResource('products.categories', 'Product\ProductCategoryController')->only(['index', 'update', 'destroy']);
+Route::ApiResource('products.transactions', 'Product\ProductTransactionController')->only('index');
+Route::ApiResource('products.buyers', 'Product\ProductBuyerController')->only('index');
+Route::ApiResource('products.buyers.transactions', 'Product\ProductBuyerTransactionController')->only('store');
