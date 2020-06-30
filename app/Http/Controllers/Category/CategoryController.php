@@ -15,17 +15,20 @@ class CategoryController extends ApiController
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+
+        return $this->showAll($categories);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display the specified resource.
      *
+     * @param  \App\Seller  $seller
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function show(Category $category)
     {
-        //
+        return $this->showOne($category);
     }
 
     /**
@@ -36,29 +39,14 @@ class CategoryController extends ApiController
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
-    }
+        $category = Category::create($request->only(['name', 'description']));
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-        //
+        return $this->showOne($category, 201);
     }
 
     /**
@@ -70,7 +58,15 @@ class CategoryController extends ApiController
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $category->fill($request->only(['name', 'description']));
+
+        if ($category->isClean()) {
+            return $this->errorResponse("You need to specify a different value to update", 422);
+        }
+
+        $category->save();
+
+        return $this->showOne($category);
     }
 
     /**
@@ -81,6 +77,8 @@ class CategoryController extends ApiController
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return $this->showOne($category);
     }
 }

@@ -45,6 +45,6 @@ class ProductBuyerTransactionController extends ApiController
             'total_price' => $product->price * $request->quantity
         ]);
 
-        return $this->showOne($transaction);
+        return $this->showOne($transaction, 201);
     }
 }

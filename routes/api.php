@@ -45,3 +45,19 @@ Route::ApiResource('products.categories', 'Product\ProductCategoryController')->
 Route::ApiResource('products.transactions', 'Product\ProductTransactionController')->only('index');
 Route::ApiResource('products.buyers', 'Product\ProductBuyerController')->only('index');
 Route::ApiResource('products.buyers.transactions', 'Product\ProductBuyerTransactionController')->only('store');
+
+/**
+ * Category Routes
+ */
+Route::ApiResource('categories', 'Category\CategoryController')->except(['create', 'edit']);
+Route::ApiResource('categories.products', 'Category\CategoryProductController')->only('index');
+Route::ApiResource('categories.sellers', 'Category\CategorySellerController')->only('index');
+Route::ApiResource('categories.transactions', 'Category\CategoryTransactionController')->only('index');
+Route::ApiResource('categories.buyers', 'Category\CategoryBuyerController')->only('index');
+
+/**
+ * Transaction Routes
+ */
+Route::ApiResource('transactions', 'Transaction\TransactionController')->only(['index', 'show']);
+Route::ApiResource('transactions.categories', 'Transaction\TransactionCategoryController')->only('index');
+Route::ApiResource('transactions.sellers', 'Transaction\TransactionSellerController')->only('index');

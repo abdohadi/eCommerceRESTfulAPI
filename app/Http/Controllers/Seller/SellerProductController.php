@@ -36,7 +36,7 @@ class SellerProductController extends ApiController
 
     	$product->save();
 
-    	return $this->showOne($product);
+    	return $this->showOne($product, 201);
     }
 
     public function update(Request $request, Seller $seller, Product $product)

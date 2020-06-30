@@ -44,7 +44,7 @@ class UserController extends ApiController
 
         $user->save();
 
-        return $this->showOne($user);
+        return $this->showOne($user, 201);
     }
 
     /**
