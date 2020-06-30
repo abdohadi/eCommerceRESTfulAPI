@@ -27,3 +27,12 @@ Route::ApiResource('sellers.products', 'Seller\SellerProductController')->except
 Route::ApiResource('sellers.categories', 'Seller\SellerCategoryController')->only('index');
 Route::ApiResource('sellers.transactions', 'Seller\SellerTransactionController')->only('index');
 Route::ApiResource('sellers.buyers', 'Seller\SellerBuyerController')->only('index');
+
+/**
+ * Buyer Routes
+ */
+Route::ApiResource('buyers', 'Buyer\BuyerController')->only(['index', 'show']);
+Route::ApiResource('buyers.transactions', 'Buyer\BuyerTransactionController')->only('index');
+Route::ApiResource('buyers.products', 'Buyer\BuyerProductController')->only('index');
+Route::ApiResource('buyers.categories', 'Buyer\BuyerCategoryController')->only('index');
+Route::ApiResource('buyers.sellers', 'Buyer\BuyerSellerController')->only('index');
