@@ -20,6 +20,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('quantity')->unsigned();
             $table->double('total_price');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('buyer_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
