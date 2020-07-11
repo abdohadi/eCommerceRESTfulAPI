@@ -17,6 +17,6 @@ class ProductTransactionController extends ApiController
     {
         $transactions = $product->transactions;
 
-        return $this->showAll($transactions);
+        return new ProductCollection(ProductResource::collection($transactions));
     }
 }

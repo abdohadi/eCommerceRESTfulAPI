@@ -6,7 +6,9 @@ use App\User;
 use App\Product;
 use App\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ApiController;
+use App\Http\Resources\Transaction\TransactionResource;
 
 class ProductBuyerTransactionController extends ApiController
 {
@@ -35,16 +37,22 @@ class ProductBuyerTransactionController extends ApiController
         }
 
         $request->validate([
-            'quantity' => 'required|integer|min:1'
+            'quantity' => 'required|integer|min:1|max:' . $product->quantity
         ]);
 
-        $transaction = Transaction::create([
-            'product_id' => $product->id, 
-            'buyer_id' => $buyer->id,
-            'quantity' => $request->quantity,
-            'total_price' => $product->price * $request->quantity
-        ]);
+        return DB::transaction(function() use ($request, $product, $buyer) {
+            $transaction = Transaction::create([
+                'product_id' => $product->id, 
+                'buyer_id' => $buyer->id,
+                'quantity' => $request->quantity,
+                'total_price' => $product->price * $request->quantity
+            ]);
 
-        return $this->showOne($transaction, 201);
+            $product->update([
+                'quantity' => $product->quantity - $request->quantity
+            ]);
+
+            return new TransactionResource($transaction);
+        });
     }
 }

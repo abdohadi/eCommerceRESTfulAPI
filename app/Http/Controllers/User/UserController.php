@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\ApiController;
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
+use App\Http\Resources\User\UserResource;
+use App\Http\Resources\User\UserCollection;
 
 class UserController extends ApiController
 {
@@ -17,7 +19,7 @@ class UserController extends ApiController
     {
         $users = User::all();
 
-        return $this->showAll($users);
+        return new UserCollection(UserResource::collection($users));
     }
 
     /**
@@ -44,7 +46,7 @@ class UserController extends ApiController
 
         $user->save();
 
-        return $this->showOne($user, 201);
+        return new UserResource($user);
     }
 
     /**
@@ -55,7 +57,7 @@ class UserController extends ApiController
      */
     public function show(User $user)
     {
-        return $this->showOne($user);
+        return new UserResource($user);
     }
 
     /**
@@ -101,7 +103,7 @@ class UserController extends ApiController
 
         $user->save();
 
-        return $this->showOne($user);
+        return new UserResource($user);
     }
 
     /**
@@ -114,6 +116,6 @@ class UserController extends ApiController
     {
         $user->delete();
 
-        return $this->showOne($user);
+        return new UserResource($user);
     }
 }

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Transaction;
 
-use App\Http\Controllers\ApiController;
 use App\Transaction;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
+use App\Http\Resources\Category\CategoryResource;
+use App\Http\Resources\Category\CategoryCollection;
 
 class TransactionCategoryController extends ApiController
 {
@@ -17,6 +19,6 @@ class TransactionCategoryController extends ApiController
     {
         $categories = $transaction->product->categories;
 
-        return $this->showAll($categories);
+        return new CategoryCollection(CategoryResource::collection($categories));
     }
 }

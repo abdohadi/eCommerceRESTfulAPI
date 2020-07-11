@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Seller;
 
-use App\Http\Controllers\ApiController;
 use App\Seller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
+use App\Http\Resources\Transaction\TransactionResource;
+use App\Http\Resources\Transaction\TransactionCollection;
 
 class SellerTransactionController extends ApiController
 {
@@ -22,6 +24,6 @@ class SellerTransactionController extends ApiController
                                ->pluck('transactions')
                                ->collapse();
 
-        return $this->showAll($transactions);
+        return new TransactionCollection(TransactionResource::collection($transactions));
     }
 }

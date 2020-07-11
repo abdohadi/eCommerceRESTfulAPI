@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Http\Controllers\ApiController;
 use App\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
+use App\Http\Resources\Product\ProductResource;
+use App\Http\Resources\Product\ProductCollection;
 
 class ProductController extends ApiController
 {
@@ -17,7 +19,7 @@ class ProductController extends ApiController
     {
         $products = Product::all();
 
-        return $this->showAll($products);
+        return new ProductCollection(ProductResource::collection($products));
     }
 
     /**
@@ -28,6 +30,6 @@ class ProductController extends ApiController
      */
     public function show(Product $product)
     {
-        return $this->showOne($product);
+        return new ProductResource($product);
     }
 }

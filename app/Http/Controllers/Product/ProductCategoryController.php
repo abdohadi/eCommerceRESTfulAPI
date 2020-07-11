@@ -6,6 +6,8 @@ use App\Product;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
+use App\Http\Resources\Category\CategoryResource;
+use App\Http\Resources\Category\CategoryCollection;
 
 class ProductCategoryController extends ApiController
 {
@@ -18,7 +20,7 @@ class ProductCategoryController extends ApiController
     {
         $categories = $product->categories;
 
-        return $this->showAll($categories);
+        return new CategoryCollection(CategoryResource::collection($categories));
     }
 
     /**
@@ -36,7 +38,7 @@ class ProductCategoryController extends ApiController
 
         $product->categories()->syncWithoutDetaching($category);
 
-        return $this->showAll($product->fresh()->categories);
+        return new CategoryCollection(CategoryResource::collection($product->fresh()->categories));
     }
 
     /**
@@ -53,6 +55,6 @@ class ProductCategoryController extends ApiController
 
         $product->categories()->detach($category);
         
-        return $this->showAll($product->fresh()->categories);
+        return new CategoryCollection(CategoryResource::collection($product->fresh()->categories));
     }
 }

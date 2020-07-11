@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Seller;
 
+use App\User;
 use App\Seller;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Resources\Product\ProductResource;
+use App\Http\Resources\Product\ProductCollection;
 
 class SellerProductController extends ApiController
 {
@@ -14,10 +17,10 @@ class SellerProductController extends ApiController
     {
     	$products = $seller->products;
 
-    	return $this->showAll($products);
+        return new ProductCollection(ProductResource::collection($products));
     }
 
-    public function store(Request $request, Seller $seller)
+    public function store(Request $request, User $seller)
     {
     	$request->validate([
     		'name' => 'required',
@@ -36,7 +39,7 @@ class SellerProductController extends ApiController
 
     	$product->save();
 
-    	return $this->showOne($product, 201);
+        return new ProductResource($product);
     }
 
     public function update(Request $request, Seller $seller, Product $product)
@@ -55,9 +58,7 @@ class SellerProductController extends ApiController
         ]));
 
         if ($request->hasFile('image')) {
-            if (! in_array($product->image, ['1.jpeg', '2.jpeg', '3.jpeg'])) {
-                Storage::delete($product->image);
-            }
+            Storage::delete($product->image);
 
             $product->image = $request->image->store('');
         }
@@ -76,7 +77,7 @@ class SellerProductController extends ApiController
 
         $product->save();
 
-        return $this->showOne($product);
+        return new ProductResource($product);
     }
 
     public function destroy(Request $request, Seller $seller, Product $product)
@@ -87,7 +88,7 @@ class SellerProductController extends ApiController
 
         Storage::delete($product->image);
 
-        return $this->showOne($product);
+        return new ProductResource($product);
     }
 
     private function checkSeller(Product $product, Seller $seller)

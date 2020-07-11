@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Transaction;
 
-use App\Http\Controllers\ApiController;
 use App\Transaction;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
+use App\Http\Resources\Transaction\TransactionResource;
+use App\Http\Resources\Transaction\TransactionCollection;
 
 class TransactionController extends ApiController
 {
@@ -17,7 +19,7 @@ class TransactionController extends ApiController
     {
         $transactions = Transaction::all();
 
-        return $this->showAll($transactions);
+        return new TransactionCollection(TransactionResource::collection($transactions));
     }
 
     /**
@@ -28,6 +30,6 @@ class TransactionController extends ApiController
      */
     public function show(Transaction $transaction)
     {
-        return $this->showOne($transaction);
+        return new TransactionResource($transaction);
     }
 }

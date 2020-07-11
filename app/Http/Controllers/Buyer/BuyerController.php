@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Buyer;
 
 use App\Buyer;
-use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
+use App\Http\Resources\Buyer\BuyerResource;
+use App\Http\Resources\Buyer\BuyerCollection;
 
 class BuyerController extends ApiController
 {
@@ -17,7 +19,7 @@ class BuyerController extends ApiController
     {
         $buyers = Buyer::all();
 
-        return $this->showAll($buyers);
+        return new BuyerCollection(BuyerResource::collection($buyers));
     }
 
     /**
@@ -28,6 +30,6 @@ class BuyerController extends ApiController
      */
     public function show(Buyer $buyer)
     {
-        return $this->showOne($buyer);
+        return new BuyerResource($buyer);
     }
 }
