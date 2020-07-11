@@ -4,6 +4,11 @@ namespace App\Traits;
 
 trait ApiResponser
 {
+	function showMessage($message, $code = 200)
+	{
+		return response()->json($message, $code);
+	}
+
 	function errorResponse($message, $code)
 	{
 		if (is_array($message)) 

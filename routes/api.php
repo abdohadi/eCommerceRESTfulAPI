@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
  * User Routes
  */
 Route::ApiResource('users', 'User\UserController');
+Route::get('users/verify/{token}', 'User\UserController@verify')->name('verify');
+Route::get('users/{user}/resend', 'User\UserController@resend')->name('resend');
 
 /**
  * Seller Routes
