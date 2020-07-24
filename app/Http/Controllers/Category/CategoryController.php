@@ -19,7 +19,7 @@ class CategoryController extends ApiController
     {
         $categories = Category::all();
 
-        return $this->showAll(new CategoryCollection(CategoryResource::collection($categories)));
+        return $this->showAll(Category::resourceCollection($categories));
     }
 
     /**

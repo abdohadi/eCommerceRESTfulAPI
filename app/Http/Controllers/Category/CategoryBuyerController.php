@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Category;
 
+use App\Buyer;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
@@ -27,6 +28,6 @@ class CategoryBuyerController extends ApiController
                            ->unique()
                            ->values();
 
-        return $this->showAll(new BuyerCollection(BuyerResource::collection($buyers)));
+        return $this->showAll(Buyer::resourceCollection($buyers));
     }
 }

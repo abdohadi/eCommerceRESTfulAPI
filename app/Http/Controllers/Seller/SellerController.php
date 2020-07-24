@@ -19,7 +19,7 @@ class SellerController extends ApiController
     {
         $sellers = Seller::all();
 
-        return $this->showAll(new SellerCollection(SellerResource::collection($sellers)));
+        return $this->showAll(Seller::resourceCollection($sellers));
     }
 
     /**

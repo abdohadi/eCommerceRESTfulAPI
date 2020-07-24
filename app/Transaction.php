@@ -4,8 +4,11 @@ namespace App;
 
 use App\Buyer;
 use App\Product;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Http\Resources\Transaction\TransactionResource;
+use App\Http\Resources\Transaction\TransactionCollection;
 
 class Transaction extends Model
 {
@@ -21,5 +24,10 @@ class Transaction extends Model
     public function Product()
     {
     	return $this->belongsTo(Product::class);
+    }
+
+    public static function resourceCollection(Collection $collection)
+    {
+        return new TransactionCollection(TransactionResource::collection($collection));
     }
 }

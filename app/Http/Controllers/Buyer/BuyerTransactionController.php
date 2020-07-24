@@ -20,6 +20,6 @@ class BuyerTransactionController extends ApiController
     {
         $transactions = $buyer->transactions;
 
-        return $this->showAll(new TransactionCollection(TransactionResource::collection($transactions)));
+        return $this->showAll(Transaction::resourceCollection($transactions));
     }
 }

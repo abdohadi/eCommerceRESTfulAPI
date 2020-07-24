@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Seller;
 
+use App\Buyer;
 use App\Seller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
@@ -27,6 +28,6 @@ class SellerBuyerController extends ApiController
                          ->unique('id')
                          ->values();
 
-        return $this->showAll(new BuyerCollection(BuyerResource::collection($buyers)));
+        return $this->showAll(Buyer::resourceCollection($buyers));
     }
 }

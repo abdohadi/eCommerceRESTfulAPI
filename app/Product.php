@@ -5,8 +5,11 @@ namespace App;
 use App\Seller;
 use App\Category;
 use App\Transaction;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Http\Resources\Product\ProductResource;
+use App\Http\Resources\Product\ProductCollection;
 
 class Product extends Model
 {
@@ -35,5 +38,10 @@ class Product extends Model
     public function isAvailable()
     {
         return $this->status == static::AVAILABLE_PRODUCT;
+    }
+
+    public static function resourceCollection(Collection $collection)
+    {
+        return new ProductCollection(ProductResource::collection($collection));
     }
 }

@@ -3,7 +3,10 @@
 namespace App;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 use Illuminate\Notifications\Notifiable;
+use App\Http\Resources\User\UserResource;
+use App\Http\Resources\User\UserCollection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -57,5 +60,10 @@ class User extends Authenticatable
     public static function generateVerificationCode()
     {
         return Str::random(40);
+    }
+
+    public static function resourceCollection(Collection $collection)
+    {
+        return new UserCollection(UserResource::collection($collection));
     }
 }

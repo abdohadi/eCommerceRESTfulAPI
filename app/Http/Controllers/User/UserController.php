@@ -21,7 +21,7 @@ class UserController extends ApiController
     {
         $users = User::all();
 
-        return $this->showAll(new UserCollection(UserResource::collection($users)));
+        return $this->showAll(User::resourceCollection($users));
     }
 
     /**

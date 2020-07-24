@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Category;
 
+use App\Product;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
@@ -19,6 +20,6 @@ class CategoryProductController extends ApiController
     {
         $products = $category->products;
 
-        return $this->showAll(new ProductCollection(ProductResource::collection($products)));
+        return $this->showAll(Product::resourceCollection($products));
     }
 }

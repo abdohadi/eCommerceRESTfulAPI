@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Seller;
+use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 use App\Http\Resources\Category\CategoryResource;
@@ -25,6 +26,6 @@ class SellerCategoryController extends ApiController
                              ->unique('id')
                              ->values();
         
-        return $this->showAll(new CategoryCollection(CategoryResource::collection($categories)));
+        return $this->showAll(Category::resourceCollection($categories));
     }
 }
