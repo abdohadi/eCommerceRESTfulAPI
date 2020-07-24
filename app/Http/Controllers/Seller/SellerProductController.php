@@ -86,7 +86,9 @@ class SellerProductController extends ApiController
 
         $product->delete();
 
-        Storage::delete($product->image);
+        if (! in_array($product->image, ['1.jpeg', '2.jpeg', '3.jpeg'])) {
+            Storage::delete($product->image);
+        }
 
         return new ProductResource($product);
     }

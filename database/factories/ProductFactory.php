@@ -13,7 +13,7 @@ $factory->define(Product::class, function (Faker $faker) {
         'description' => $faker->paragraph,
         'quantity' => $faker->numberBetween(1, 100),
         'price' => $faker->numberBetween(10, 1000),
-        'image' => $faker->image('public/storage/images',640,480, null, false),
+        'image' => $faker->randomElement(['1.jpeg', '2.jpeg', '3.jpeg']),
         'status' => $faker->randomElement([Product::AVAILABLE_PRODUCT, Product::UNAVAILABLE_PRODUCT])
     ];
 });

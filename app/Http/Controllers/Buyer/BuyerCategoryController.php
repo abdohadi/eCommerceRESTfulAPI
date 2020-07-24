@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Buyer;
 
 use App\Buyer;
-use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
+use App\Http\Resources\Category\CategoryResource;
+use App\Http\Resources\Category\CategoryCollection;
 
 class BuyerCategoryController extends ApiController
 {
@@ -23,6 +25,6 @@ class BuyerCategoryController extends ApiController
                             ->unique()
                             ->values();
 
-        return $this->showAll($categories);
+        return new CategoryCollection(CategoryResource::collection($categories));
     }
 }
