@@ -19,7 +19,7 @@ class TransactionController extends ApiController
     {
         $transactions = Transaction::all();
 
-        return new TransactionCollection(TransactionResource::collection($transactions));
+        return $this->showAll(new TransactionCollection(TransactionResource::collection($transactions)));
     }
 
     /**

@@ -29,11 +29,11 @@ class TransactionResource extends JsonResource
                 ],
                 [
                     'rel' => 'transaction.buyer',
-                    'href' => route('buyers.show', $this->buyer->id)
+                    'href' => route('buyers.show', $this->buyer_id)
                 ],
                 [
                     'rel' => 'transaction.product',
-                    'href' => route('products.show', $this->product->id)
+                    'href' => route('products.show', $this->product_id)
                 ],
                 [
                     'rel' => 'transaction.categories',

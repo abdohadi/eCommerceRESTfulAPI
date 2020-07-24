@@ -18,4 +18,22 @@ class ProductCollection extends ResourceCollection
             'data' => $this->collection,
         ];
     }
+
+    public static function originalAttribute($attribute)
+    {
+        $attributes = [
+            'identifier' => 'id',
+            'title' => 'name',
+            'details' => 'description',
+            'stock' => 'quantity',
+            'price' => 'price',
+            'picture' => 'image',
+            'situation' => 'status',
+            'seller' => 'seller_id',
+            'creationDate' => 'created_at',
+            'lastChange' => 'updated_at',
+        ];
+
+        return $attributes[$attribute] ?? null;
+    }
 }

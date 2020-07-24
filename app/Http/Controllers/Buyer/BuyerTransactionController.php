@@ -6,6 +6,8 @@ use App\Buyer;
 use App\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
+use App\Http\Resources\Transaction\TransactionResource;
+use App\Http\Resources\Transaction\TransactionCollection;
 
 class BuyerTransactionController extends ApiController
 {
@@ -18,6 +20,6 @@ class BuyerTransactionController extends ApiController
     {
         $transactions = $buyer->transactions;
 
-        return $this->showAll($transactions);
+        return $this->showAll(new TransactionCollection(TransactionResource::collection($transactions)));
     }
 }

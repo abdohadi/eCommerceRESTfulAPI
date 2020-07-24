@@ -19,6 +19,6 @@ class TransactionCategoryController extends ApiController
     {
         $categories = $transaction->product->categories;
 
-        return new CategoryCollection(CategoryResource::collection($categories));
+        return $this->showAll(new CategoryCollection(CategoryResource::collection($categories)));
     }
 }

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Category;
 
 use App\Category;
-use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
+use App\Http\Resources\Transaction\TransactionResource;
+use App\Http\Resources\Transaction\TransactionCollection;
 
 class CategoryTransactionController extends ApiController
 {
@@ -22,6 +24,6 @@ class CategoryTransactionController extends ApiController
                                  ->pluck('transactions')
                                  ->collapse();
 
-        return $this->showAll($transactions);
+        return $this->showAll(new TransactionCollection(TransactionResource::collection($transactions)));
     }
 }

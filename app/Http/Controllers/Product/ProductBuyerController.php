@@ -24,6 +24,6 @@ class ProductBuyerController extends ApiController
                           ->unique()
                           ->values();
 
-        return new BuyerCollection(BuyerResource::collection($buyers));
+        return $this->showAll(new BuyerCollection(BuyerResource::collection($buyers)));
     }
 }

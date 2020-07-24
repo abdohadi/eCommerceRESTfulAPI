@@ -19,7 +19,7 @@ class ProductController extends ApiController
     {
         $products = Product::all();
 
-        return new ProductCollection(ProductResource::collection($products));
+        return $this->showAll(new ProductCollection(ProductResource::collection($products)));
     }
 
     /**

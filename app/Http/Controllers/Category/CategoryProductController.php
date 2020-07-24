@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Category;
 
 use App\Category;
-use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
+use App\Http\Resources\Product\ProductResource;
+use App\Http\Resources\Product\ProductCollection;
 
 class CategoryProductController extends ApiController
 {
@@ -17,6 +19,6 @@ class CategoryProductController extends ApiController
     {
         $products = $category->products;
 
-        return $this->showAll($products);
+        return $this->showAll(new ProductCollection(ProductResource::collection($products)));
     }
 }

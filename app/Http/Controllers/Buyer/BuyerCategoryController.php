@@ -25,6 +25,6 @@ class BuyerCategoryController extends ApiController
                             ->unique()
                             ->values();
 
-        return new CategoryCollection(CategoryResource::collection($categories));
+        return $this->showAll(new CategoryCollection(CategoryResource::collection($categories)));
     }
 }

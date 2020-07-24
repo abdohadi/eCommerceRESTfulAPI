@@ -18,4 +18,17 @@ class CategoryCollection extends ResourceCollection
             'data' => $this->collection,
         ];
     }
+
+    public static function originalAttribute($attribute)
+    {
+        $attributes = [
+            'identifier' => 'id',
+            'title' => 'name',
+            'details' => 'description',
+            'creationDate' => 'created_at',
+            'lastChange' => 'updated_at',
+        ];
+
+        return $attributes[$attribute] ?? null;
+    }
 }

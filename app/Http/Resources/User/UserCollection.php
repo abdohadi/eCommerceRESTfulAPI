@@ -18,4 +18,19 @@ class UserCollection extends ResourceCollection
             'data' => $this->collection,
         ];
     }
+
+    public static function originalAttribute($attribute)
+    {
+        $attributes = [
+            'identifier' => 'id',
+            'name' => 'name',
+            'email' => 'email',
+            'isVerified' => 'verified',
+            'isAdmin' => 'admin',
+            'creationDate' => 'created_at',
+            'lastChange' => 'updated_at',
+        ];
+
+        return $attributes[$attribute] ?? null;
+    }
 }

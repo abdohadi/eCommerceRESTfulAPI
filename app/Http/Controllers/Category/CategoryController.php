@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Category;
 
 use App\Category;
-use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
+use App\Http\Resources\Category\CategoryResource;
+use App\Http\Resources\Category\CategoryCollection;
 
 class CategoryController extends ApiController
 {
@@ -17,7 +19,7 @@ class CategoryController extends ApiController
     {
         $categories = Category::all();
 
-        return $this->showAll($categories);
+        return $this->showAll(new CategoryCollection(CategoryResource::collection($categories)));
     }
 
     /**
@@ -28,7 +30,7 @@ class CategoryController extends ApiController
      */
     public function show(Category $category)
     {
-        return $this->showOne($category);
+        return new CategoryResource($category);
     }
 
     /**
@@ -46,7 +48,7 @@ class CategoryController extends ApiController
 
         $category = Category::create($request->only(['name', 'description']));
 
-        return $this->showOne($category, 201);
+        return new CategoryResource($category);
     }
 
     /**
@@ -66,7 +68,7 @@ class CategoryController extends ApiController
 
         $category->save();
 
-        return $this->showOne($category);
+        return new CategoryResource($category);
     }
 
     /**
@@ -79,6 +81,6 @@ class CategoryController extends ApiController
     {
         $category->delete();
 
-        return $this->showOne($category);
+        return new CategoryResource($category);
     }
 }

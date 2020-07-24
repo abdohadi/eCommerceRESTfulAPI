@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Buyer;
 
 use App\Buyer;
-use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
+use App\Http\Resources\Product\ProductResource;
+use App\Http\Resources\Product\ProductCollection;
 
 class BuyerProductController extends ApiController
 {
@@ -20,6 +22,6 @@ class BuyerProductController extends ApiController
                           ->get()
                           ->pluck('product');
 
-        return $this->showAll($products);
+        return $this->showAll(new ProductCollection(ProductResource::collection($products)));
     }
 }

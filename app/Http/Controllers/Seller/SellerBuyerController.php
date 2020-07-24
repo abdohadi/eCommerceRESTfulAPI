@@ -27,6 +27,6 @@ class SellerBuyerController extends ApiController
                          ->unique('id')
                          ->values();
 
-        return new BuyerCollection(BuyerResource::collection($buyers));
+        return $this->showAll(new BuyerCollection(BuyerResource::collection($buyers)));
     }
 }

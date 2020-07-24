@@ -18,4 +18,18 @@ class TransactionCollection extends ResourceCollection
             'data' => $this->collection,
         ];
     }
+
+    public static function originalAttribute($attribute)
+    {
+        $attributes = [
+            'identifier' => 'id',
+            'product' => 'product_id',
+            'buyer' => 'buyer_id',
+            'cost' => 'total_price',
+            'creationDate' => 'created_at',
+            'lastChange' => 'updated_at',
+        ];
+
+        return $attributes[$attribute] ?? null;
+    }
 }

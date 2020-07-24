@@ -25,6 +25,6 @@ class SellerCategoryController extends ApiController
                              ->unique('id')
                              ->values();
         
-        return new CategoryCollection(CategoryResource::collection($categories));
+        return $this->showAll(new CategoryCollection(CategoryResource::collection($categories)));
     }
 }

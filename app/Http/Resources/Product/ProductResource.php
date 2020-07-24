@@ -33,7 +33,7 @@ class ProductResource extends JsonResource
                 ],
                 [
                     'rel' => 'product.seller',
-                    'href' => route('sellers.show', $this->seller->id)
+                    'href' => route('sellers.show', $this->seller_id)
                 ],
                 [
                     'rel' => 'product.categories',

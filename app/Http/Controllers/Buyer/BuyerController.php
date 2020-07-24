@@ -19,7 +19,7 @@ class BuyerController extends ApiController
     {
         $buyers = Buyer::all();
 
-        return new BuyerCollection(BuyerResource::collection($buyers));
+        return $this->showAll(new BuyerCollection(BuyerResource::collection($buyers)));
     }
 
     /**

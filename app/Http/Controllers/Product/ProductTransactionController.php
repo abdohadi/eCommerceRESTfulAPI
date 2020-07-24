@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Http\Controllers\ApiController;
 use App\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
+use App\Http\Resources\Product\ProductResource;
+use App\Http\Resources\Product\ProductCollection;
+use App\Http\Resources\Transaction\TransactionResource;
+use App\Http\Resources\Transaction\TransactionCollection;
 
 class ProductTransactionController extends ApiController
 {
@@ -17,6 +21,6 @@ class ProductTransactionController extends ApiController
     {
         $transactions = $product->transactions;
 
-        return new ProductCollection(ProductResource::collection($transactions));
+        return $this->showAll(new TransactionCollection(TransactionResource::collection($transactions)));
     }
 }

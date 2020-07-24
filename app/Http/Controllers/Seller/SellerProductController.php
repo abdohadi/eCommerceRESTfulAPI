@@ -17,7 +17,7 @@ class SellerProductController extends ApiController
     {
     	$products = $seller->products;
 
-        return new ProductCollection(ProductResource::collection($products));
+        return $this->showAll(new ProductCollection(ProductResource::collection($products)));
     }
 
     public function store(Request $request, User $seller)

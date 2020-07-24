@@ -38,7 +38,7 @@ class ProductCategoryController extends ApiController
 
         $product->categories()->syncWithoutDetaching($category);
 
-        return new CategoryCollection(CategoryResource::collection($product->fresh()->categories));
+        return $this->showAll(new CategoryCollection(CategoryResource::collection($product->fresh()->categories)));
     }
 
     /**
@@ -55,6 +55,6 @@ class ProductCategoryController extends ApiController
 
         $product->categories()->detach($category);
         
-        return new CategoryCollection(CategoryResource::collection($product->fresh()->categories));
+        return $this->showAll(new CategoryCollection(CategoryResource::collection($product->fresh()->categories)));
     }
 }
