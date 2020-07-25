@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 trait ApiResponser
@@ -10,6 +12,7 @@ trait ApiResponser
 	{
 		$collection = $this->filterData($collection);
 		$collection = $this->sortData($collection);
+		$collection = $this->paginateData($collection);
 
 		return $collection;
 	}
@@ -58,5 +61,28 @@ trait ApiResponser
 		}
 
 		return $collection;
+	}
+
+	function paginateData(ResourceCollection $collection)
+	{
+		$rules = [
+			'per_page' => 'integer|min:2|max:50'
+		];
+		Validator::validate(request()->only('per_page'), $rules);
+
+		$perPage = 15;
+		if (request()->has('per_page')) {
+			$perPage = request()->per_page;
+		}
+
+		$currentPage = LengthAwarePaginator::resolveCurrentPage('page');
+
+		$items = $collection->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+		$paginated = new LengthAwarePaginator($items, $collection->count(), $perPage, $currentPage, [
+			'path' => LengthAwarePaginator::resolveCurrentPath()
+		]);
+
+		return $paginated;
 	}
 }
