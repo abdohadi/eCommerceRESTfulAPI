@@ -32,4 +32,18 @@ class SellerCollection extends ResourceCollection
 
         return $attributes[$attribute] ?? null;
     }
+
+    public static function transformedAttribute($attribute)
+    {
+        $attributes = [
+            'id' => 'identifier',
+            'name' => 'name',
+            'email' => 'email',
+            'verified' => 'isVerified',
+            'created_at' => 'creationDate',
+            'updated_at' => 'lastChange',
+        ];
+
+        return $attributes[$attribute] ?? null;
+    }
 }

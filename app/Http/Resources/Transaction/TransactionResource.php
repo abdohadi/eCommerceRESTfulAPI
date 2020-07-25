@@ -18,6 +18,7 @@ class TransactionResource extends JsonResource
             'identifier' => (int) $this->id,
             'product' => (string) $this->product_id,
             'buyer' => (string) $this->buyer_id,
+            'quantity' => (int) $this->quantity,
             'cost' => (string) $this->total_price,
             'creationDate' => (string) $this->created_at,
             'lastChange' => (string) $this->updated_at,

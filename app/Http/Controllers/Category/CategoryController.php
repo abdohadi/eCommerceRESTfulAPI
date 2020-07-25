@@ -10,6 +10,11 @@ use App\Http\Resources\Category\CategoryCollection;
 
 class CategoryController extends ApiController
 {
+    public function __construct()
+    {
+        $this->middleware('transform.input:' . CategoryCollection::class)->only(['store', 'update']);
+    }
+
     /**
      * Display a listing of the resource.
      *

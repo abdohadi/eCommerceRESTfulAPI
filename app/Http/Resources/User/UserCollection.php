@@ -25,10 +25,29 @@ class UserCollection extends ResourceCollection
             'identifier' => 'id',
             'name' => 'name',
             'email' => 'email',
+            'password' => 'password',
+            'password_confirmation' => 'password_confirmation',
             'isVerified' => 'verified',
             'isAdmin' => 'admin',
             'creationDate' => 'created_at',
             'lastChange' => 'updated_at',
+        ];
+
+        return $attributes[$attribute] ?? null;
+    }
+
+    public static function transformedAttribute($attribute)
+    {
+        $attributes = [
+            'id' => 'identifier',
+            'name' => 'name',
+            'email' => 'email',
+            'password' => 'password',
+            'password_confirmation' => 'password_confirmation',
+            'verified' => 'isVerified',
+            'admin' => 'isAdmin',
+            'created_at' => 'creationDate',
+            'updated_at' => 'lastChange',
         ];
 
         return $attributes[$attribute] ?? null;

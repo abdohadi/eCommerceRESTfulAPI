@@ -31,4 +31,17 @@ class CategoryCollection extends ResourceCollection
 
         return $attributes[$attribute] ?? null;
     }
+
+    public static function transformedAttribute($attribute)
+    {
+        $attributes = [
+            'id' => 'identifier',
+            'name' => 'title',
+            'description' => 'details',
+            'created_at' => 'creationDate',
+            'updated_at' => 'lastChange',
+        ];
+
+        return $attributes[$attribute] ?? null;
+    }
 }

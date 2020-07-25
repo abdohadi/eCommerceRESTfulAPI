@@ -12,6 +12,11 @@ use App\Http\Resources\User\UserCollection;
 
 class UserController extends ApiController
 {
+    public function __construct()
+    {
+        $this->middleware('transform.input:' . UserCollection::class)->only(['store', 'update']);
+    }
+    
     /**
      * Display a listing of the resource.
      *

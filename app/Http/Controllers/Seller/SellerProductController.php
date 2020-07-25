@@ -13,6 +13,11 @@ use App\Http\Resources\Product\ProductCollection;
 
 class SellerProductController extends ApiController
 {
+    public function __construct()
+    {
+        $this->middleware('transform.input:' . ProductCollection::class)->only(['store', 'update']);
+    }
+    
     public function index(Seller $seller)
     {
     	$products = $seller->products;

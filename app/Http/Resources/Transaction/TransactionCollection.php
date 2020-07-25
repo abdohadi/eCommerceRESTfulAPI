@@ -25,9 +25,25 @@ class TransactionCollection extends ResourceCollection
             'identifier' => 'id',
             'product' => 'product_id',
             'buyer' => 'buyer_id',
+            'quantity' => 'quantity',
             'cost' => 'total_price',
             'creationDate' => 'created_at',
             'lastChange' => 'updated_at',
+        ];
+
+        return $attributes[$attribute] ?? null;
+    }
+
+    public static function transformedAttribute($attribute)
+    {
+        $attributes = [
+            'id' => 'identifier',
+            'product_id' => 'product',
+            'buyer_id' => 'buyer',
+            'quantity' => 'quantity',
+            'total_price' => 'cost',
+            'created_at' => 'creationDate',
+            'updated_at' => 'lastChange',
         ];
 
         return $attributes[$attribute] ?? null;
