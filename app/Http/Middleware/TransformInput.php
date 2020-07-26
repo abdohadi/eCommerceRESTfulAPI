@@ -16,7 +16,7 @@ class TransformInput
      */
     public function handle($request, Closure $next, $resourceCollection)
     {
-        // First: Transform the request parameters to the original values
+        // First: Send the request attributes with the original values
         $originalAttributes = [];
 
         foreach ($request->all() as $key => $value) {

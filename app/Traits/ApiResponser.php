@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -10,9 +11,10 @@ trait ApiResponser
 {
 	function showAll(ResourceCollection $collection)
 	{
-		$collection = $this->filterData($collection);
-		$collection = $this->sortData($collection);
-		$collection = $this->paginateData($collection);
+		$collection = $this->filterResponse($collection);
+		$collection = $this->sortResponse($collection);
+		$collection = $this->paginateResponse($collection);
+		$collection = $this->cacheResponse($collection);
 
 		return $collection;
 	}
@@ -30,7 +32,7 @@ trait ApiResponser
 		return response()->json(['message' => $message, 'code' => $code], $code);
 	}
 
-	function filterData(ResourceCollection $collection)
+	function filterResponse(ResourceCollection $collection)
 	{
 		// Get queries other than 'sort_by'
 		$queries = array_filter(request()->query(), function($v, $k) {
@@ -52,18 +54,22 @@ trait ApiResponser
 		return $collection;
 	}
 
-	function sortData(ResourceCollection $collection)
+	function sortResponse(ResourceCollection $collection)
 	{
 		if (request()->has('sort_by')) {
 			$attribute = $collection::originalAttribute(request()->sort_by);
-	
-			return $collection->sortBy($attribute);
+
+			$collection = $collection->sortBy($attribute);
+			$model = $collection->first();
+			$collection = $model->resourceCollection($collection);
+
+			return $collection;
 		}
 
 		return $collection;
 	}
 
-	function paginateData(ResourceCollection $collection)
+	function paginateResponse(ResourceCollection $collection)
 	{
 		$rules = [
 			'per_page' => 'integer|min:2|max:50'
@@ -84,5 +90,19 @@ trait ApiResponser
 		]);
 
 		return $paginated;
+	}
+
+	function cacheResponse($data)
+	{
+		$url = request()->url();
+
+		if ($queries = request()->query()) {
+			ksort($queries);
+			$url = $url . '?' . http_build_query($queries);
+		}
+
+		return Cache::remember($url, now()->addMinutes(10), function() use ($data) {
+			return $data;
+		});
 	}
 }
