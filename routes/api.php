@@ -63,3 +63,8 @@ Route::ApiResource('categories.buyers', 'Category\CategoryBuyerController')->onl
 Route::ApiResource('transactions', 'Transaction\TransactionController')->only(['index', 'show']);
 Route::ApiResource('transactions.categories', 'Transaction\TransactionCategoryController')->only('index');
 Route::ApiResource('transactions.sellers', 'Transaction\TransactionSellerController')->only('index');
+
+/**
+ * OAuth Routes
+ */
+Route::post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken');

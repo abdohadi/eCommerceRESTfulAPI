@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserCollection;
@@ -12,10 +13,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
-{
-    use SoftDeletes;
-    
-    use Notifiable;
+{    
+    use Notifiable, SoftDeletes, HasApiTokens;
 
     const VERIFIED_USER = '1'; 
     const UNVERIFIED_USER = '0';
