@@ -9,6 +9,11 @@ use App\Http\Resources\Seller\SellerResource;
 
 class TransactionSellerController extends ApiController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      * Display a list of the specified resource.
      *
