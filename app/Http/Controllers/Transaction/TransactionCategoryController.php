@@ -12,8 +12,8 @@ use App\Http\Resources\Category\CategoryCollection;
 class TransactionCategoryController extends ApiController
 {
     public function __construct()
-    {
-        parent::__construct();
+    {        
+        $this->middleware('client.credentials')->only(['index']);
     }
 
     /**
