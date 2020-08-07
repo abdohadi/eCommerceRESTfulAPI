@@ -20,6 +20,7 @@ class SellerProductController extends ApiController
         $this->middleware('transform.input:' . ProductCollection::class)->only(['store', 'update']);
         $this->middleware('scope:manage-products, read-general')->only('index');
         $this->middleware('scope:manage-products')->except('index');
+        $this->middleware('can:view,seller');
     }
     
     public function index(Seller $seller)

@@ -26,9 +26,10 @@ class BuyerPolicy
      * Determine whether the user can purchase products.
      *
      * @param  \App\User  $user
+     * @param  \App\User  $buyer
      * @return mixed
      */
-    public function purchase(User $user, Buyer $buyer)
+    public function purchase(User $user, User $buyer)
     {
         return $user->id === $buyer->id;
     }
