@@ -2,13 +2,14 @@
 
 namespace App\Policies;
 
-use App\Product;
 use App\User;
+use App\Product;
+use App\Traits\AdminActions;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ProductPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, AdminActions;
 
     /**
      * Determine whether the user can manage categories of a product.
