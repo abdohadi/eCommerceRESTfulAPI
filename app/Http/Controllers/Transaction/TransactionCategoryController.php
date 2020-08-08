@@ -13,7 +13,8 @@ class TransactionCategoryController extends ApiController
 {
     public function __construct()
     {        
-        $this->middleware('client.credentials')->only(['index']);
+        $this->middleware('client.credentials')->only('index');
+        $this->middleware('can:view,transaction')->only('index');
     }
 
     /**
