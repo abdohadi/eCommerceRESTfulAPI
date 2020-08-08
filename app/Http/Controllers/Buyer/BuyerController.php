@@ -25,6 +25,8 @@ class BuyerController extends ApiController
      */
     public function index()
     {
+        $this->allowedAdminActions();
+        
         $buyers = Buyer::all();
 
         return $this->showAll(Buyer::resourceCollection($buyers));

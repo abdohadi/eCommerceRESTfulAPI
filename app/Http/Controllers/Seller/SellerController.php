@@ -25,6 +25,8 @@ class SellerController extends ApiController
      */
     public function index()
     {
+        $this->allowedAdminActions();
+        
         $sellers = Seller::all();
 
         return $this->showAll(Seller::resourceCollection($sellers));

@@ -48,6 +48,8 @@ class CategoryController extends ApiController
      */
     public function store(Request $request)
     {
+        $this->allowedAdminActions();
+        
         $request->validate([
             'name' => 'required',
             'description' => 'required'
@@ -67,6 +69,8 @@ class CategoryController extends ApiController
      */
     public function update(Request $request, Category $category)
     {
+        $this->allowedAdminActions();
+        
         $category->fill($request->only(['name', 'description']));
 
         if ($category->isClean()) {
@@ -86,6 +90,8 @@ class CategoryController extends ApiController
      */
     public function destroy(Category $category)
     {
+        $this->allowedAdminActions();
+        
         $category->delete();
 
         return new CategoryResource($category);
