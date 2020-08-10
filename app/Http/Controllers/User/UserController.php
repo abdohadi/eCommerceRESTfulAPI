@@ -159,4 +159,9 @@ class UserController extends ApiController
 
         return $this->showMessage("The verification email has been resent.");
     }
+
+    public function me(Request $request)
+    {
+        return new UserResource($request->user());
+    }
 }

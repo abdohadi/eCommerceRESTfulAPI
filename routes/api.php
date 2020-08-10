@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('api')->group(function() {
+	/**
+	 * Authenticated User Route
+	 */
+	Route::get('users/me', 'User\UserController@me')->name('me');
 
 	/**
 	 * User Routes
